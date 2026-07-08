@@ -49,15 +49,20 @@ A thin backend layer between a Supabase-authenticated SPA and Supabase + **Googl
 ### `POST /chat`
 
 - **Authentication:** `Authorization: Bearer <supabase_access_token>`
-- **Use case:** Send a user message to Gemini and return the model reply (API key stays on the worker).
+- **Use case:** Send a user message and return the model reply (provider API key stays on the worker).
 - **Request body:**
 
 ```json
 {
-  "message": "Explain how JWT auth works in one sentence."
+  "message": "Follow-up question",
+  "history": [
+    { "role": "user", "content": "Hello" },
+    { "role": "assistant", "content": "Hi! How can I help?" }
+  ]
 }
 ```
 
+- `history` is optional; omit or pass `[]` for a single-turn prompt. Up to **100** prior turns accepted.
 - **Success response:**
 
 ```json
@@ -123,6 +128,6 @@ Never expose `GEMINI_API_KEY` to the browser or commit it to git.
 |---------------|---------------|
 | Header health indicator | `GET /health` (no auth) |
 | Home page profile card | `GET /me` (Bearer token) |
-| AI chat / prompt UI | `POST /chat` with `{ "message": "..." }` |
+| AI chat / prompt UI | `POST /chat` with `{ "message": "...", "history": [...] }` |
 
-Base URL is configured in the React app via `VITE_API_BASE_URL` (default `http://localhost:8787`).
+Pairs with **react-supabase-auth-ai-chat-template** (or any SPA implementing the same `/health`, `/me`, and `/chat` contracts). See that repo's `specs/FEATURES.md` for client behavior.

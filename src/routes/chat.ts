@@ -5,18 +5,25 @@ import { generateGeminiReply } from "@/lib/gemini";
 import { errorResponse, successResponse } from "@/utils/response";
 import { Env, Variables } from "@/types";
 
+const historyItemSchema = z.object({
+  role: z.enum(["user", "assistant"]),
+  content: z.string().min(1).max(10000),
+});
+
 const messageBodySchema = z.object({
   message: z.string().min(1, "message is required").max(10000),
+  history: z.array(historyItemSchema).max(100).optional(),
 });
 
 export const chatRouter = new Hono<{ Bindings: Env; Variables: Variables }>();
 
 async function handleChatRequest(
   c: Context<{ Bindings: Env; Variables: Variables }>,
-  message: string
+  message: string,
+  history: z.infer<typeof historyItemSchema>[] = []
 ) {
   try {
-    const text = await generateGeminiReply(c.env, message);
+    const text = await generateGeminiReply(c.env, message, history);
 
     return c.json(
       successResponse({
@@ -42,13 +49,13 @@ async function handleChatRequest(
   }
 }
 
-/** POST /chat — JSON body `{ "message": "..." }` */
+/** POST /chat — JSON body `{ "message": "...", "history": [...] }` */
 chatRouter.post("/", zValidator("json", messageBodySchema), async (c) => {
-  const { message } = c.req.valid("json");
-  return handleChatRequest(c, message);
+  const { message, history } = c.req.valid("json");
+  return handleChatRequest(c, message, history ?? []);
 });
 
-/** GET /chat?message=... — query alternative for quick tests */
+/** GET /chat?message=... — query alternative for quick tests (no history) */
 chatRouter.get("/", async (c) => {
   const message = c.req.query("message")?.trim();
 

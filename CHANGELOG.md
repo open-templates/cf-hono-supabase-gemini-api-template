@@ -11,12 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Cloudflare Worker** API built with **Hono** and TypeScript (`wrangler dev` / `wrangler deploy`).
 - **`GET /health`** — public liveness endpoint for frontend connectivity checks.
-- **`GET /me`** — authenticated profile endpoint using Supabase JWT and `auth.getUser()`.
-- **`POST /chat`** and **`GET /chat?message=`** — Bearer-protected Gemini prompts via `@google/genai` and `GEMINI_API_KEY`.
+- **`GET /me`** — authenticated profile endpoint using `Authorization: Bearer <supabase_access_token>` and `auth.getUser()`.
+- **`POST /chat`** — Bearer-protected chat completion with `{ "message": "..." }` and optional `history` for multi-turn context.
+- **`GET /chat?message=`** — query-string alternative for quick manual tests (no history).
 - **JWT auth middleware** — validates Supabase access tokens on all routes except `/health`.
-- **Standardized JSON responses**, CORS, Supabase client helpers, request logging, and error handling.
+- **AI provider integration** — `@google/genai` with `GEMINI_API_KEY` and optional `GEMINI_MODEL` (default `gemini-2.5-flash`).
+- **Standardized JSON responses** — `{ success, data }` / `{ success: false, error }` via `src/utils/response.ts`.
+- **CORS** — configurable via `ALLOWED_ORIGINS` for local dev and production frontends.
+- **Supabase client helpers** — JWT-scoped, anonymous, and service-role clients in `src/lib/supabase.ts`.
+- **Request logging** and centralized error handling middleware.
 - **Feature specification** at [`specs/FEATURES.md`](specs/FEATURES.md).
-- **Pairing** with [react-supabase-auth-template](https://github.com/open-templates/react-supabase-auth-template).
+- **Pairing** with [react-supabase-auth-ai-chat-template](https://github.com/open-templates/react-supabase-auth-ai-chat-template) for end-to-end auth + chat demo.
 - **Template init wizard** and shared `@open-templates/specs` scaffolding.
 
 ---
