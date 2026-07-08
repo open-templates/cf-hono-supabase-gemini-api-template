@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { authMiddleware, corsMiddleware, errorHandler } from "@/middleware";
-import { geminiRouter } from "@/routes/gemini";
+import { chatRouter } from "@/routes/chat";
 import { healthRouter } from "@/routes/health";
 import { meRouter } from "@/routes/me";
 import { Env, Variables } from "@/types";
@@ -16,7 +16,7 @@ app.route("/health", healthRouter);
 
 app.use("/*", authMiddleware);
 app.route("/me", meRouter);
-app.route("/gemini", geminiRouter);
+app.route("/chat", chatRouter);
 
 app.notFound((c) => {
   return c.json(

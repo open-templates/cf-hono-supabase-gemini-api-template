@@ -7,7 +7,7 @@ description: Add REST endpoints to cf-hono-supabase-gemini-api-template Hono wor
 
 ## Before you start
 
-Read [`specs/FEATURES.md`](../../specs/FEATURES.md). Existing endpoints: `GET /health`, `GET /me`, `POST /gemini`, `GET /gemini`.
+Read [`specs/FEATURES.md`](../../specs/FEATURES.md). Existing endpoints: `GET /health`, `GET /me`, `POST /chat`, `GET /chat`.
 
 ## Response shape
 

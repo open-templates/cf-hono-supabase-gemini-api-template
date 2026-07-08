@@ -8,8 +8,8 @@ Cloudflare Worker API with **Hono**, **Supabase Auth**, and **Google Gemini**. P
 |----------|------|-------------|
 | `GET /health` | Public | Liveness check |
 | `GET /me` | Bearer JWT | Authenticated user profile |
-| `POST /gemini` | Bearer JWT | JSON body `{ "message": "..." }` → Gemini reply |
-| `GET /gemini?message=` | Bearer JWT | Query-string Gemini prompt |
+| `POST /chat` | Bearer JWT | JSON body `{ "message": "..." }` → Gemini reply |
+| `GET /chat?message=` | Bearer JWT | Query-string Gemini prompt |
 
 See [`specs/FEATURES.md`](specs/FEATURES.md).
 

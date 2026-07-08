@@ -8,8 +8,8 @@ Use this file when turning this template into a **production API** on Cloudflare
 |----------|------|---------|
 | `GET /health` | Public | Liveness check |
 | `GET /me` | Bearer JWT | Current Supabase user |
-| `POST /gemini` | Bearer JWT | `{ "message": "..." }` → Gemini reply |
-| `GET /gemini?message=` | Bearer JWT | Query-string Gemini prompt |
+| `POST /chat` | Bearer JWT | `{ "message": "..." }` → Gemini reply |
+| `GET /chat?message=` | Bearer JWT | Query-string Gemini prompt |
 
 Details: [`specs/FEATURES.md`](specs/FEATURES.md)
 
@@ -50,7 +50,7 @@ Verify:
 ```bash
 curl http://localhost:8787/health
 curl -H "Authorization: Bearer <supabase-access-token>" http://localhost:8787/me
-curl -X POST http://localhost:8787/gemini \
+curl -X POST http://localhost:8787/chat \
   -H "Authorization: Bearer <supabase-access-token>" \
   -H "Content-Type: application/json" \
   -d '{"message":"Hello Gemini"}'

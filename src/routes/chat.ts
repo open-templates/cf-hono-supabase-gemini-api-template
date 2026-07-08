@@ -9,9 +9,9 @@ const messageBodySchema = z.object({
   message: z.string().min(1, "message is required").max(10000),
 });
 
-export const geminiRouter = new Hono<{ Bindings: Env; Variables: Variables }>();
+export const chatRouter = new Hono<{ Bindings: Env; Variables: Variables }>();
 
-async function handleGeminiRequest(
+async function handleChatRequest(
   c: Context<{ Bindings: Env; Variables: Variables }>,
   message: string
 ) {
@@ -26,30 +26,30 @@ async function handleGeminiRequest(
       })
     );
   } catch (error) {
-    const err = error instanceof Error ? error : new Error("Gemini request failed");
+    const err = error instanceof Error ? error : new Error("Chat completion failed");
 
     if (err.message.includes("GEMINI_API_KEY")) {
       return c.json(
-        errorResponse("Gemini API key is not configured", "INTERNAL_SERVER_ERROR"),
+        errorResponse("AI provider is not configured", "INTERNAL_SERVER_ERROR"),
         { status: 500 }
       );
     }
 
     return c.json(
-      errorResponse(err.message || "Gemini request failed", "INTERNAL_SERVER_ERROR"),
+      errorResponse(err.message || "Chat completion failed", "INTERNAL_SERVER_ERROR"),
       { status: 502 }
     );
   }
 }
 
-/** POST /gemini — JSON body `{ "message": "..." }` */
-geminiRouter.post("/", zValidator("json", messageBodySchema), async (c) => {
+/** POST /chat — JSON body `{ "message": "..." }` */
+chatRouter.post("/", zValidator("json", messageBodySchema), async (c) => {
   const { message } = c.req.valid("json");
-  return handleGeminiRequest(c, message);
+  return handleChatRequest(c, message);
 });
 
-/** GET /gemini?message=... — query alternative for quick tests */
-geminiRouter.get("/", async (c) => {
+/** GET /chat?message=... — query alternative for quick tests */
+chatRouter.get("/", async (c) => {
   const message = c.req.query("message")?.trim();
 
   if (!message) {
@@ -66,5 +66,5 @@ geminiRouter.get("/", async (c) => {
     );
   }
 
-  return handleGeminiRequest(c, message);
+  return handleChatRequest(c, message);
 });

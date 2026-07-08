@@ -28,8 +28,8 @@ See [`templates/ABOUT_TEMPLATES.md`](templates/ABOUT_TEMPLATES.md) and [`docs/IN
 |----------|------|-------------|
 | `GET /health` | Public | Liveness check for frontend online/offline indicator |
 | `GET /me` | Bearer JWT | Returns the authenticated Supabase user profile |
-| `POST /gemini` | Bearer JWT | Send `{ "message": "..." }` to Gemini; returns model reply |
-| `GET /gemini?message=...` | Bearer JWT | Query-string alternative for quick tests |
+| `POST /chat` | Bearer JWT | Send `{ "message": "..." }` to Gemini; returns model reply |
+| `GET /chat?message=...` | Bearer JWT | Query-string alternative for quick tests |
 
 See [`specs/FEATURES.md`](specs/FEATURES.md) for detailed behavior and extension guidance.
 
@@ -39,7 +39,7 @@ Test:
 curl http://localhost:8787/health
 
 # With a Supabase access token:
-curl -X POST http://localhost:8787/gemini \
+curl -X POST http://localhost:8787/chat \
   -H "Authorization: Bearer YOUR_JWT" \
   -H "Content-Type: application/json" \
   -d '{"message":"Hello from the worker"}'

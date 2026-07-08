@@ -46,7 +46,7 @@ A thin backend layer between a Supabase-authenticated SPA and Supabase + **Googl
 
 - **Errors:** `401` with `{ "success": false, "error": { "message": "...", "code": "UNAUTHORIZED" } }`
 
-### `POST /gemini`
+### `POST /chat`
 
 - **Authentication:** `Authorization: Bearer <supabase_access_token>`
 - **Use case:** Send a user message to Gemini and return the model reply (API key stays on the worker).
@@ -73,11 +73,11 @@ A thin backend layer between a Supabase-authenticated SPA and Supabase + **Googl
 
 - **Errors:** `400` (missing/invalid body), `401` (no/invalid JWT), `502` (Gemini API failure)
 
-### `GET /gemini?message=...`
+### `GET /chat?message=...`
 
-- **Authentication:** Bearer JWT (same as `POST /gemini`)
+- **Authentication:** Bearer JWT (same as `POST /chat`)
 - **Use case:** Quick manual tests via query string instead of JSON body.
-- **Success response:** Same shape as `POST /gemini`.
+- **Success response:** Same shape as `POST /chat`.
 
 ## Middleware
 
@@ -105,8 +105,8 @@ A thin backend layer between a Supabase-authenticated SPA and Supabase + **Googl
 
 | Module | Role |
 |--------|------|
-| `src/lib/gemini.ts` | `GoogleGenAI` client + `generateContent` |
-| `src/routes/gemini.ts` | `POST` and `GET` handlers |
+| `src/lib/gemini.ts` | AI provider client (`@google/genai`) |
+| `src/routes/chat.ts` | `POST` and `GET` handlers |
 
 Never expose `GEMINI_API_KEY` to the browser or commit it to git.
 
@@ -123,6 +123,6 @@ Never expose `GEMINI_API_KEY` to the browser or commit it to git.
 |---------------|---------------|
 | Header health indicator | `GET /health` (no auth) |
 | Home page profile card | `GET /me` (Bearer token) |
-| AI chat / prompt UI | `POST /gemini` with `{ "message": "..." }` |
+| AI chat / prompt UI | `POST /chat` with `{ "message": "..." }` |
 
 Base URL is configured in the React app via `VITE_API_BASE_URL` (default `http://localhost:8787`).

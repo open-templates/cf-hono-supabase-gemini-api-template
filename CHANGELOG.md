@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Cloudflare Worker** API built with **Hono** and TypeScript (`wrangler dev` / `wrangler deploy`).
 - **`GET /health`** — public liveness endpoint for frontend connectivity checks.
 - **`GET /me`** — authenticated profile endpoint using Supabase JWT and `auth.getUser()`.
-- **`POST /gemini`** and **`GET /gemini?message=`** — Bearer-protected Gemini prompts via `@google/genai` and `GEMINI_API_KEY`.
+- **`POST /chat`** and **`GET /chat?message=`** — Bearer-protected Gemini prompts via `@google/genai` and `GEMINI_API_KEY`.
 - **JWT auth middleware** — validates Supabase access tokens on all routes except `/health`.
 - **Standardized JSON responses**, CORS, Supabase client helpers, request logging, and error handling.
 - **Feature specification** at [`specs/FEATURES.md`](specs/FEATURES.md).

@@ -45,20 +45,20 @@ curl http://localhost:8787/health
 curl -H "Authorization: Bearer YOUR_ACCESS_TOKEN" http://localhost:8787/me
 
 # Gemini — POST with JSON body (Bearer token required)
-curl -X POST http://localhost:8787/gemini \
+curl -X POST http://localhost:8787/chat \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"message":"Explain JWT auth in one sentence."}'
 
 # Gemini — GET with query string (same auth)
-curl -G http://localhost:8787/gemini \
+curl -G http://localhost:8787/chat \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN" \
   --data-urlencode "message=Hello from curl"
 ```
 
 Get a token from the React app after login (`localStorage.getItem('x-auth-token')`) or from Supabase Auth APIs during development.
 
-Example success response from `/gemini`:
+Example success response from `/chat`:
 
 ```json
 {
@@ -77,7 +77,7 @@ Example success response from `/gemini`:
 2. In `react-supabase-auth-template`, set `VITE_API_BASE_URL=http://localhost:8787` in `.env.local`.
 3. Start the frontend (`bun run dev`).
 4. Sign in with Google OAuth or email/password; the home page calls `GET /me` and the header polls `GET /health`.
-5. Call `POST /gemini` from your frontend with the same Bearer token to add an AI prompt UI (see [`specs/FEATURES.md`](specs/FEATURES.md)).
+5. Call `POST /chat` from your frontend with the same Bearer token to add an AI prompt UI (see [`specs/FEATURES.md`](specs/FEATURES.md)).
 
 ## 6. Deploy
 
