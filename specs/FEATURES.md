@@ -1,10 +1,10 @@
 # API features specification
 
-This document describes the intentional, production-ready surface of **cf-hono-supabase-api-template**. Use it when extending the worker or pairing with the React frontend.
+This document describes the intentional, production-ready surface of **cf-hono-supabase-gemini-api-template**. Use it when extending the worker or pairing with the React frontend.
 
 ## Purpose
 
-A thin backend layer between a Supabase-authenticated SPA and Supabase services. Authentication is delegated to Supabase; the worker validates access tokens and performs server-side operations that should not run in the browser.
+A thin backend layer between a Supabase-authenticated SPA and Supabase + **Google Gemini**. Authentication is delegated to Supabase; the worker validates access tokens, calls Gemini server-side with `GEMINI_API_KEY`, and returns standardized JSON.
 
 ## Endpoints
 
@@ -46,12 +46,52 @@ A thin backend layer between a Supabase-authenticated SPA and Supabase services.
 
 - **Errors:** `401` with `{ "success": false, "error": { "message": "...", "code": "UNAUTHORIZED" } }`
 
+### `POST /gemini`
+
+- **Authentication:** `Authorization: Bearer <supabase_access_token>`
+- **Use case:** Send a user message to Gemini and return the model reply (API key stays on the worker).
+- **Request body:**
+
+```json
+{
+  "message": "Explain how JWT auth works in one sentence."
+}
+```
+
+- **Success response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "message": "Explain how JWT auth works in one sentence.",
+    "reply": "...",
+    "model": "gemini-2.5-flash"
+  }
+}
+```
+
+- **Errors:** `400` (missing/invalid body), `401` (no/invalid JWT), `502` (Gemini API failure)
+
+### `GET /gemini?message=...`
+
+- **Authentication:** Bearer JWT (same as `POST /gemini`)
+- **Use case:** Quick manual tests via query string instead of JSON body.
+- **Success response:** Same shape as `POST /gemini`.
+
 ## Middleware
 
 1. **Logger** — request logging
 2. **CORS** — respects `ALLOWED_ORIGINS` when set
 3. **Error handler** — standardized JSON errors
 4. **Auth** — applied to all routes except `/health`; extracts JWT `sub` and rejects invalid tokens
+
+## Environment
+
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `GEMINI_API_KEY` | Yes | Google AI Studio API key for `@google/genai` |
+| `GEMINI_MODEL` | No | Model id (default `gemini-2.5-flash`) |
 
 ## Supabase integration
 
@@ -61,7 +101,14 @@ A thin backend layer between a Supabase-authenticated SPA and Supabase services.
 | `getSupabaseUserClient(env)` | Anonymous public reads |
 | `getSupabaseAdminClient(env)` | Service-role operations (use sparingly) |
 
-No custom database tables are required for the default template. Add migrations and routes as you grow the app.
+## Gemini integration
+
+| Module | Role |
+|--------|------|
+| `src/lib/gemini.ts` | `GoogleGenAI` client + `generateContent` |
+| `src/routes/gemini.ts` | `POST` and `GET` handlers |
+
+Never expose `GEMINI_API_KEY` to the browser or commit it to git.
 
 ## Extension guidelines
 
@@ -75,6 +122,7 @@ No custom database tables are required for the default template. Add migrations 
 | Frontend call | Backend route |
 |---------------|---------------|
 | Header health indicator | `GET /health` (no auth) |
-| Home page profile card | `GET /me` (Bearer token from `localStorage['x-auth-token']`) |
+| Home page profile card | `GET /me` (Bearer token) |
+| AI chat / prompt UI | `POST /gemini` with `{ "message": "..." }` |
 
 Base URL is configured in the React app via `VITE_API_BASE_URL` (default `http://localhost:8787`).

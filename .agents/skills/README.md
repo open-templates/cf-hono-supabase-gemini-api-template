@@ -1,4 +1,4 @@
-# cf-hono-supabase-api-template — Agent Skills Index
+# cf-hono-supabase-gemini-api-template — Agent Skills Index
 
 Skills teach agents how this Cloudflare Worker API works and how to extend it safely.
 

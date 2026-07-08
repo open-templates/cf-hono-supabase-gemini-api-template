@@ -1,6 +1,6 @@
-name = "cf-hono-supabase-api-template"
+name = "cf-hono-supabase-gemini-api-template"
 main = "src/index.ts"
-compatibility_date = "2026-07-03"
+compatibility_date = "2026-07-08"
 
 [env.production]
 routes = [

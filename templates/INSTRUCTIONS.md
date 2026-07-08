@@ -1,6 +1,6 @@
 # Agent & developer instructions — repo-name
 
-Minimal **Hono + Supabase** Cloudflare Worker API. Pairs with [paired-repo-name](https://github.com/owner-username/paired-repo-name) for the React frontend.
+**Hono + Supabase + Gemini** Cloudflare Worker API. Pairs with [paired-repo-name](https://github.com/owner-username/paired-repo-name).
 
 ## What ships out of the box
 
@@ -8,8 +8,10 @@ Minimal **Hono + Supabase** Cloudflare Worker API. Pairs with [paired-repo-name]
 |----------|------|-------------|
 | `GET /health` | Public | Liveness probe |
 | `GET /me` | Bearer JWT | Authenticated user profile |
+| `POST /gemini` | Bearer JWT | `{ "message": "..." }` → Gemini reply |
+| `GET /gemini?message=` | Bearer JWT | Query-string Gemini prompt |
 
-Details: [`specs/FEATURES.md`](specs/FEATURES.md)
+Set `GEMINI_API_KEY` in `.dev.vars` / Wrangler secrets. Details: [`specs/FEATURES.md`](specs/FEATURES.md)
 
 ## Local development
 
@@ -21,6 +23,4 @@ npm run dev
 
 ## Deploy
 
-See [`CLOUDFLARE_SETUP.md`](CLOUDFLARE_SETUP.md) for Wrangler login, secrets, and custom domains.
-
-Update `wrangler.toml` routes before production deploy.
+See [`CLOUDFLARE_SETUP.md`](CLOUDFLARE_SETUP.md). Store `GEMINI_API_KEY` as a Wrangler secret in production.

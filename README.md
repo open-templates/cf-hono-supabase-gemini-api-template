@@ -1,6 +1,6 @@
-# cf-hono-supabase-api-template
+# cf-hono-supabase-gemini-api-template
 
-Minimal Cloudflare Worker API built with **Hono** and **Supabase** from [@open-templates](https://github.com/open-templates). Pairs with [react-supabase-auth-template](https://github.com/open-templates/react-supabase-auth-template).
+Cloudflare Worker API built with **Hono**, **Supabase Auth**, and **Google Gemini** from [@open-templates](https://github.com/open-templates). Pairs with [react-supabase-auth-template](https://github.com/open-templates/react-supabase-auth-template).
 
 ## Quick start
 
@@ -16,6 +16,7 @@ Minimal Cloudflare Worker API built with **Hono** and **Supabase** from [@open-t
 ```bash
 npm install
 cp .env.example .dev.vars
+# Set SUPABASE_* and GEMINI_API_KEY in .dev.vars
 npm run dev
 ```
 
@@ -27,21 +28,21 @@ See [`templates/ABOUT_TEMPLATES.md`](templates/ABOUT_TEMPLATES.md) and [`docs/IN
 |----------|------|-------------|
 | `GET /health` | Public | Liveness check for frontend online/offline indicator |
 | `GET /me` | Bearer JWT | Returns the authenticated Supabase user profile |
+| `POST /gemini` | Bearer JWT | Send `{ "message": "..." }` to Gemini; returns model reply |
+| `GET /gemini?message=...` | Bearer JWT | Query-string alternative for quick tests |
 
 See [`specs/FEATURES.md`](specs/FEATURES.md) for detailed behavior and extension guidance.
-
-## Quick start
-
-```bash
-npm install
-cp .env.example .dev.vars
-npm run dev
-```
 
 Test:
 
 ```bash
 curl http://localhost:8787/health
+
+# With a Supabase access token:
+curl -X POST http://localhost:8787/gemini \
+  -H "Authorization: Bearer YOUR_JWT" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Hello from the worker"}'
 ```
 
 Full setup: [`QUICKSTART.md`](QUICKSTART.md) · Cloudflare deploy: [`CLOUDFLARE_SETUP.md`](CLOUDFLARE_SETUP.md)
@@ -53,10 +54,10 @@ Full setup: [`QUICKSTART.md`](QUICKSTART.md) · Cloudflare deploy: [`CLOUDFLARE_
 | `SUPABASE_URL` | Yes | Supabase project URL |
 | `SUPABASE_ANON_KEY` | Yes | Anon key for JWT-scoped client |
 | `SUPABASE_SERVICE_ROLE_KEY` | Yes | Reserved for future admin operations |
+| `GEMINI_API_KEY` | Yes | Google AI Studio key for `@google/genai` |
+| `GEMINI_MODEL` | No | Model id (default `gemini-2.5-flash`) |
 | `ALLOWED_ORIGINS` | No | Comma-separated CORS origins |
 | `ENVIRONMENT` | No | `development` / `staging` / `production` |
-
-Maintained by [xarlizard](https://github.com/jane).
 
 ## License
 

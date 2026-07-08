@@ -1,13 +1,13 @@
 ---
 name: create-api-endpoint
-description: Add REST endpoints to cf-hono-supabase-api-template Hono worker. Use when creating routes, registering routers in index.ts, choosing public vs JWT-protected handlers, or returning standardized JSON responses.
+description: Add REST endpoints to cf-hono-supabase-gemini-api-template Hono worker. Use when creating routes, registering routers in index.ts, choosing public vs JWT-protected handlers, or returning standardized JSON responses.
 ---
 
 # Create API Endpoints
 
 ## Before you start
 
-Read [`specs/FEATURES.md`](../../specs/FEATURES.md). Existing endpoints: `GET /health`, `GET /me`.
+Read [`specs/FEATURES.md`](../../specs/FEATURES.md). Existing endpoints: `GET /health`, `GET /me`, `POST /gemini`, `GET /gemini`.
 
 ## Response shape
 

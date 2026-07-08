@@ -1,9 +1,9 @@
 ---
-description: cf-hono-supabase-api-template conventions and onboarding for agents
+description: cf-hono-supabase-gemini-api-template conventions and onboarding for agents
 alwaysApply: true
 ---
 
-# cf-hono-supabase-api-template
+# cf-hono-supabase-gemini-api-template
 
 Read **`INSTRUCTIONS.md`** first for Supabase prerequisites, env setup, and how to pair with the React frontend demo.
 

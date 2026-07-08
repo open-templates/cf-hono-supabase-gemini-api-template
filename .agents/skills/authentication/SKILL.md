@@ -1,6 +1,6 @@
 ---
 name: authentication
-description: JWT authentication and Supabase client usage in cf-hono-supabase-api-template. Use when securing routes, implementing /me-style handlers, choosing anon vs JWT vs service-role clients, or debugging 401 responses.
+description: JWT authentication and Supabase client usage in cf-hono-supabase-gemini-api-template. Use when securing routes, implementing /me-style handlers, choosing anon vs JWT vs service-role clients, or debugging 401 responses.
 ---
 
 # Authentication

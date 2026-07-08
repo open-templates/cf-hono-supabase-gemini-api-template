@@ -1,6 +1,6 @@
 ---
 name: create-zod-schema
-description: Define Zod validation schemas for cf-hono-supabase-api-template request and response bodies. Use when adding POST/PUT/PATCH endpoints, validating query params, or typing API inputs before Supabase operations.
+description: Define Zod validation schemas for cf-hono-supabase-gemini-api-template request and response bodies. Use when adding POST/PUT/PATCH endpoints, validating query params, or typing API inputs before Supabase operations.
 ---
 
 # Create Zod Schemas

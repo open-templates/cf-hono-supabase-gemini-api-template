@@ -30,7 +30,7 @@ account_id = "your-account-id"
 ### 2. Configure wrangler.toml
 
 ```toml
-name = "cf-hono-supabase-api-template"
+name = "cf-hono-supabase-gemini-api-template"
 type = "service"
 main = "src/index.ts"
 compatibility_date = "2024-01-15"
@@ -97,7 +97,7 @@ For workers.dev subdomain (free):
 wrangler publish
 ```
 
-Your API will be available at: `https://cf-hono-supabase-api-template.your-username.workers.dev`
+Your API will be available at: `https://cf-hono-supabase-gemini-api-template.your-username.workers.dev`
 
 ## Deployment
 

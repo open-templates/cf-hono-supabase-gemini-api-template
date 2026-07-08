@@ -1,6 +1,6 @@
 ---
 name: supabase-mcp
-description: Apply Supabase migrations, seed data, and inspect schema using Supabase MCP from cf-hono-supabase-api-template work. Use when creating tables, running SQL, checking RLS advisors, or seeding dev data for new API endpoints.
+description: Apply Supabase migrations, seed data, and inspect schema using Supabase MCP from cf-hono-supabase-gemini-api-template work. Use when creating tables, running SQL, checking RLS advisors, or seeding dev data for new API endpoints.
 ---
 
 # Supabase MCP (Database)

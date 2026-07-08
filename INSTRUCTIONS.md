@@ -1,4 +1,4 @@
-# Agent & developer instructions — cf-hono-supabase-api-template
+# Agent & developer instructions — cf-hono-supabase-gemini-api-template
 
 Use this file when turning this template into a **production API** on Cloudflare Workers. This repository is **self-contained**; you do not need the frontend template to run the worker, but pairing with [react-supabase-auth-template](https://github.com/open-templates/react-supabase-auth-template) is the recommended demo for end-to-end auth.
 
@@ -8,6 +8,8 @@ Use this file when turning this template into a **production API** on Cloudflare
 |----------|------|---------|
 | `GET /health` | Public | Liveness check |
 | `GET /me` | Bearer JWT | Current Supabase user |
+| `POST /gemini` | Bearer JWT | `{ "message": "..." }` → Gemini reply |
+| `GET /gemini?message=` | Bearer JWT | Query-string Gemini prompt |
 
 Details: [`specs/FEATURES.md`](specs/FEATURES.md)
 
@@ -39,7 +41,7 @@ Local development does not require Cloudflare login if you use `wrangler dev` wi
 ```bash
 npm install
 cp .env.example .dev.vars
-# Edit .dev.vars with Supabase credentials
+# Edit .dev.vars with Supabase credentials and GEMINI_API_KEY
 npm run dev   # http://localhost:8787
 ```
 
@@ -48,6 +50,10 @@ Verify:
 ```bash
 curl http://localhost:8787/health
 curl -H "Authorization: Bearer <supabase-access-token>" http://localhost:8787/me
+curl -X POST http://localhost:8787/gemini \
+  -H "Authorization: Bearer <supabase-access-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Hello Gemini"}'
 ```
 
 Full guides: [`QUICKSTART.md`](QUICKSTART.md), [`SETUP.md`](SETUP.md), [`CLOUDFLARE_SETUP.md`](CLOUDFLARE_SETUP.md)
@@ -59,6 +65,8 @@ Full guides: [`QUICKSTART.md`](QUICKSTART.md), [`SETUP.md`](SETUP.md), [`CLOUDFL
 | `SUPABASE_URL` | Yes | |
 | `SUPABASE_ANON_KEY` | Yes | Used with user JWT |
 | `SUPABASE_SERVICE_ROLE_KEY` | Yes | Admin operations only |
+| `GEMINI_API_KEY` | Yes | [Google AI Studio](https://aistudio.google.com/apikey) — server only |
+| `GEMINI_MODEL` | No | Default `gemini-2.5-flash` |
 | `ALLOWED_ORIGINS` | Recommended | Comma-separated frontend origins for CORS |
 | `ENVIRONMENT` | No | `development` / `staging` / `production` |
 

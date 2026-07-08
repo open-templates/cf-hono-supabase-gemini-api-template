@@ -1,16 +1,16 @@
 {
-  "name": "cf-hono-supabase-api-template",
+  "name": "cf-hono-supabase-gemini-api-template",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Minimal Cloudflare Worker API with Hono and Supabase Auth. Pairs with react-supabase-auth-template.",
+  "description": "Cloudflare Worker API with Hono, Supabase Auth, and Gemini. Pairs with react-supabase-auth-template.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/open-templates/cf-hono-supabase-api-template.git"
+    "url": "git+https://github.com/open-templates/cf-hono-supabase-gemini-api-template.git"
   },
-  "homepage": "https://github.com/open-templates/cf-hono-supabase-api-template#readme",
+  "homepage": "https://github.com/open-templates/cf-hono-supabase-gemini-api-template#readme",
   "bugs": {
-    "url": "https://github.com/open-templates/cf-hono-supabase-api-template/issues"
+    "url": "https://github.com/open-templates/cf-hono-supabase-gemini-api-template/issues"
   },
   "license": "MIT",
   "scripts": {
@@ -23,6 +23,7 @@
     "format": "prettier --write \"src/**/*.ts\""
   },
   "dependencies": {
+    "@google/genai": "^1.0.0",
     "hono": "^4.1.0",
     "@supabase/supabase-js": "^2.38.0",
     "zod": "^3.22.4",

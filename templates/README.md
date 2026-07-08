@@ -1,15 +1,17 @@
 # repo-name
 
-Minimal Cloudflare Worker API built with **Hono** and **Supabase**. Pairs with [paired-repo-name](https://github.com/owner-username/paired-repo-name): the React app handles auth; this worker validates JWTs and exposes API endpoints.
+Cloudflare Worker API with **Hono**, **Supabase Auth**, and **Google Gemini**. Pairs with [paired-repo-name](https://github.com/owner-username/paired-repo-name).
 
 ## Out-of-the-box features
 
 | Endpoint | Auth | Description |
 |----------|------|-------------|
-| `GET /health` | Public | Liveness check for frontend online/offline indicator |
-| `GET /me` | Bearer JWT | Returns the authenticated Supabase user profile |
+| `GET /health` | Public | Liveness check |
+| `GET /me` | Bearer JWT | Authenticated user profile |
+| `POST /gemini` | Bearer JWT | JSON body `{ "message": "..." }` → Gemini reply |
+| `GET /gemini?message=` | Bearer JWT | Query-string Gemini prompt |
 
-See [`specs/FEATURES.md`](specs/FEATURES.md) for detailed behavior and extension guidance.
+See [`specs/FEATURES.md`](specs/FEATURES.md).
 
 ## Quick start
 
@@ -19,23 +21,16 @@ cp .env.example .dev.vars
 npm run dev
 ```
 
-Test:
-
-```bash
-curl http://localhost:8787/health
-```
-
-Full setup: [`QUICKSTART.md`](QUICKSTART.md) · Cloudflare deploy: [`CLOUDFLARE_SETUP.md`](CLOUDFLARE_SETUP.md)
-
 ## Environment variables
 
 | Variable | Required | Purpose |
 |----------|----------|---------|
 | `SUPABASE_URL` | Yes | Supabase project URL |
-| `SUPABASE_ANON_KEY` | Yes | Anon key for JWT-scoped client |
-| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Reserved for future admin operations |
-| `ALLOWED_ORIGINS` | No | Comma-separated CORS origins |
-| `ENVIRONMENT` | No | `development` / `staging` / `production` |
+| `SUPABASE_ANON_KEY` | Yes | Anon key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Yes | Service role key |
+| `GEMINI_API_KEY` | Yes | Google AI Studio API key |
+| `GEMINI_MODEL` | No | Model override (default `gemini-2.5-flash`) |
+| `ALLOWED_ORIGINS` | No | CORS origins |
 
 Maintained by [author-display-name](https://github.com/author-github-login).
 
