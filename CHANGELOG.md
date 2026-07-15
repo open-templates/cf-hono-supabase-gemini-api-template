@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **CORS** — configurable via `ALLOWED_ORIGINS` for local dev and production frontends.
 - **Supabase client helpers** — JWT-scoped, anonymous, and service-role clients in `src/lib/supabase.ts`.
 - **Request logging** and centralized error handling middleware.
-- **Feature specification** at [`specs/FEATURES.md`](specs/FEATURES.md).
+- **Feature specification** at [`index.md`](index.md).
 - **Pairing** with [react-supabase-auth-ai-chat-template](https://github.com/open-templates/react-supabase-auth-ai-chat-template) for end-to-end auth + chat demo.
 - **Template init wizard** and shared `@open-templates/specs` scaffolding.
 

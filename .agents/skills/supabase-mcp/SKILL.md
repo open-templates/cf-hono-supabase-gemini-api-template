@@ -92,7 +92,7 @@ Discover commands via `supabase --help`; do not guess flags.
 
 1. Zod schema → [create-zod-schema](../create-zod-schema/SKILL.md)
 2. Route using JWT client → [create-api-endpoint](../create-api-endpoint/SKILL.md)
-3. Document table + policies in `specs/FEATURES.md`
+3. Document table + policies in `index.md`
 
 ## Data API exposure
 

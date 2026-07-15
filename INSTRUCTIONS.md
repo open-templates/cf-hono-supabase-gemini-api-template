@@ -11,7 +11,7 @@ Use this file when turning this template into a **production API** on Cloudflare
 | `POST /chat` | Bearer JWT | `{ "message": "..." }` → Gemini reply |
 | `GET /chat?message=` | Bearer JWT | Query-string Gemini prompt |
 
-Details: [`specs/FEATURES.md`](specs/FEATURES.md)
+Details: [`index.md`](index.md)
 
 ---
 
@@ -96,9 +96,10 @@ The frontend sends `Authorization: Bearer <token>` from Supabase session; this w
 Read in order:
 
 1. **`INSTRUCTIONS.md`** (this file) — prerequisites and pairing
-2. **`specs/FEATURES.md`** — current API contract
-3. **`.agents/skills/README.md`** — skill index
-4. **`skills-lock.json`** — pinned upstream Supabase skills (optional `npx skills add` to install)
+2. **`index.md`** — current API contract
+3. **`.agents/skills/index.md`** — OKF module guides
+4. **`.agents/skills/README.md`** — Cursor `SKILL.md` catalog
+5. **`skills-lock.json`** — pinned upstream Supabase skills (optional `npx skills add` to install)
 
 ### Supabase MCP vs skills-lock
 
@@ -115,7 +116,7 @@ Configure MCP separately after clone; it is not stored in this repository.
 2. **Zod schema** (if validating input): `src/schemas/` — see `create-zod-schema` skill
 3. **Route**: `src/routes/` — see `create-api-endpoint` skill
 4. **Register** in `src/index.ts` (public routes before `authMiddleware`)
-5. **Document** in `specs/FEATURES.md`
+5. **Document** in `index.md`
 6. **Frontend** (if UI consumes it): add module in react template `src/api/`
 
 ### Rules
@@ -134,7 +135,7 @@ src/index.ts          Entry + middleware order
 src/routes/           health.ts, me.ts (+ your routes)
 src/middleware/       Auth, CORS, errors
 src/lib/supabase.ts   Client factories
-specs/FEATURES.md     Feature specification
+index.md     Feature specification
 skills-lock.json        Pinned upstream Supabase agent skills
 .agents/skills/         Project agent skills
 .cursor/rules/        Cursor IDE rules

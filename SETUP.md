@@ -46,4 +46,4 @@ When you add tables:
 2. Add Zod schemas under `src/schemas/`.
 3. Add route handlers under `src/routes/`.
 4. Use `getSupabaseClientWithJWT` so Row Level Security applies to the authenticated user.
-5. Update `specs/FEATURES.md` with new endpoints.
+5. Update `index.md` with new endpoints.

@@ -11,7 +11,7 @@
 | `POST /chat` | Bearer JWT | `{ "message": "..." }` → Gemini reply |
 | `GET /chat?message=` | Bearer JWT | Query-string Gemini prompt |
 
-Set `GEMINI_API_KEY` in `.dev.vars` / Wrangler secrets. Details: [`specs/FEATURES.md`](specs/FEATURES.md)
+Set `GEMINI_API_KEY` in `.dev.vars` / Wrangler secrets. Details: [`index.md`](index.md)
 
 ## Local development
 

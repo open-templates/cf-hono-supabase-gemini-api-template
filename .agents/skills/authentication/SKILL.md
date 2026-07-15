@@ -82,5 +82,7 @@ React app stores token in `localStorage['x-auth-token']`. On 401, client refresh
 
 ## See also
 
-- [`specs/FEATURES.md`](../../specs/FEATURES.md)
+- [`index.md`](../../../index.md) — OKF feature index
+- [auth-middleware](../modules/auth-middleware.md) — OKF module for JWT gate
+- [chat-route](../modules/chat-route.md) — OKF module for `/chat`
 - [create-api-endpoint](../create-api-endpoint/SKILL.md)

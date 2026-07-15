@@ -7,7 +7,7 @@ description: Add REST endpoints to cf-hono-supabase-gemini-api-template Hono wor
 
 ## Before you start
 
-Read [`specs/FEATURES.md`](../../specs/FEATURES.md). Existing endpoints: `GET /health`, `GET /me`, `POST /chat`, `GET /chat`.
+Read [`index.md`](../../index.md). Existing endpoints: `GET /health`, `GET /me`, `POST /chat`, `GET /chat`.
 
 ## Response shape
 
@@ -113,11 +113,13 @@ Prefer JWT-scoped client for user data. See [authentication](../authentication/S
 - [ ] Route file under `src/routes/`
 - [ ] Registered in `index.ts` at correct middleware position
 - [ ] Uses `successResponse` / `errorResponse`
-- [ ] Documented in `specs/FEATURES.md`
+- [ ] Documented in `index.md`
 - [ ] Frontend module added in react template `src/api/` if consumed by UI
 - [ ] `npm run type-check` passes
 
 ## See also
 
+- [`index.md`](../../../index.md) — OKF feature index
+- [chat-route](../modules/chat-route.md) — OKF module for `/chat` (when adding chat endpoints)
 - [authentication](../authentication/SKILL.md)
 - [supabase-mcp](../supabase-mcp/SKILL.md) — when endpoint needs new tables

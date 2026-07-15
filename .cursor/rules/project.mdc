@@ -7,10 +7,11 @@ alwaysApply: true
 
 Read **`INSTRUCTIONS.md`** first for Supabase prerequisites, env setup, and how to pair with the React frontend demo.
 
-- Feature contract: `specs/FEATURES.md`
-- Agent skills: `.agents/skills/README.md`
-- Default API: `GET /health` (public), `GET /me` (JWT)
+- Feature contract: `index.md`
+- OKF skills: `.agents/skills/index.md`
+- Cursor skills: `.agents/skills/README.md`
+- Default API: `GET /health` (public), `GET /me` (JWT), `POST /chat` (JWT + Gemini)
 
-When adding endpoints: register in `src/index.ts` (public before `authMiddleware`), use `successResponse`/`errorResponse`, prefer `getSupabaseClientWithJWT` for user data, update `specs/FEATURES.md`.
+When adding endpoints: register in `src/index.ts` (public before `authMiddleware`), use `successResponse`/`errorResponse`, prefer `getSupabaseClientWithJWT` for user data, update `index.md`.
 
-Pairing frontend (not in this repo): [react-supabase-auth-template](https://github.com/open-templates/react-supabase-auth-template) — set its `VITE_API_BASE_URL` to this worker and `ALLOWED_ORIGINS` here to the frontend origin.
+Pairing frontend (not in this repo): [react-supabase-auth-ai-chat-template](https://github.com/open-templates/react-supabase-auth-ai-chat-template) — set its `VITE_API_BASE_URL` to this worker and `ALLOWED_ORIGINS` here to the frontend origin.

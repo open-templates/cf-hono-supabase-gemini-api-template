@@ -11,7 +11,7 @@ Cloudflare Worker API with **Hono**, **Supabase Auth**, and **Google Gemini**. P
 | `POST /chat` | Bearer JWT | JSON body `{ "message": "..." }` → Gemini reply |
 | `GET /chat?message=` | Bearer JWT | Query-string Gemini prompt |
 
-See [`specs/FEATURES.md`](specs/FEATURES.md).
+See [`index.md`](index.md).
 
 ## Quick start
 

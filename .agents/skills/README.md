@@ -4,18 +4,20 @@ Skills teach agents how this Cloudflare Worker API works and how to extend it sa
 
 ## Project status (current template)
 
-Minimal **Hono + Supabase** worker paired with **react-supabase-auth-template**:
+**Hono + Supabase + Gemini** worker paired with **react-supabase-auth-ai-chat-template**:
 
 | Endpoint | Auth | Purpose |
 |----------|------|---------|
 | `GET /health` | Public | Liveness check |
 | `GET /me` | Bearer JWT | Current user via `auth.getUser()` |
+| `POST /chat` | Bearer JWT | Gemini chat completion (`message`, optional `history`) |
+| `GET /chat?message=` | Bearer JWT | Query alternative for quick tests (no history) |
 
-No custom Postgres tables required for the default template.
+Requires `GEMINI_API_KEY` (and optional `GEMINI_MODEL`) for chat. No custom Postgres tables for the default template.
 
-Canonical spec: [`specs/FEATURES.md`](../../specs/FEATURES.md)
+Canonical OKF specs: [`index.md`](../../index.md) · OKF modules: [`.agents/skills/index.md`](index.md)
 
-## Skills
+## Cursor SKILL.md packs
 
 | Skill | Use when |
 |-------|----------|
@@ -26,16 +28,24 @@ Canonical spec: [`specs/FEATURES.md`](../../specs/FEATURES.md)
 
 ### Upstream Supabase skills (optional install)
 
-[`skills-lock.json`](../../skills-lock.json) pins the same `supabase/agent-skills` versions as the React template (not tied to any user or MCP `project_ref`).
-
-After clone, install into this repo if you want the full Supabase skill packs locally:
+[`skills-lock.json`](../../skills-lock.json) pins `supabase/agent-skills` versions (not tied to any MCP `project_ref`).
 
 ```bash
 npx skills add supabase/agent-skills --skill supabase
 npx skills add supabase/agent-skills --skill supabase-postgres-best-practices
 ```
 
-Or configure Supabase MCP in Cursor (see `INSTRUCTIONS.md`) — project-specific; separate from `computedHash`.
+Or configure Supabase MCP in Cursor (see `INSTRUCTIONS.md`).
+
+## OKF modules (local)
+
+| Module | Use when |
+|--------|----------|
+| [auth-middleware](modules/auth-middleware.md) | Hono JWT gate and client selection |
+| [chat-route](modules/chat-route.md) | `POST/GET /chat` handlers and Gemini wiring |
+| [gemini-client](modules/gemini-client.md) | `@google/genai` wrapper and env vars |
+
+Shared concepts (synced): [shared/auth/](shared/auth/) · [shared/supabase/](shared/supabase/)
 
 ## Project layout
 
@@ -44,9 +54,10 @@ src/
 ├── index.ts           # Route registration, middleware order
 ├── routes/
 │   ├── health.ts      # Public
-│   └── me.ts          # Protected
+│   ├── me.ts          # Protected
+│   └── chat.ts        # Protected — Gemini
 ├── middleware/        # auth, CORS, errors
-├── lib/supabase.ts    # Client factories
+├── lib/               # supabase.ts, gemini.ts
 ├── utils/             # jwt, auth, response
 └── schemas/           # Zod schemas (add as needed)
 ```
@@ -57,7 +68,7 @@ src/
 2. **Route** → `src/routes/<name>.ts`
 3. **Register** in `src/index.ts` (public before auth, or after `authMiddleware`)
 4. **Migration** (if new tables) → Supabase MCP / CLI; enable RLS
-5. **Document** → `specs/FEATURES.md` + frontend `src/api/` module
+5. **Document** → `specs/features/` + `.agents/skills/modules/` + frontend `src/api/` module
 
 ## Middleware order (do not break)
 
@@ -69,4 +80,4 @@ logger → cors → errorHandler → /health (public) → authMiddleware → pro
 
 Local: `.dev.vars` (from `.env.example`). Production: `wrangler secret put`.
 
-Required: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`. Optional: `ALLOWED_ORIGINS`.
+Required: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `GEMINI_API_KEY`. Optional: `ALLOWED_ORIGINS`, `GEMINI_MODEL`.

@@ -88,7 +88,7 @@ export const widgetResponseSchema = z.object({
 1. Apply migration via [supabase-mcp](../supabase-mcp/SKILL.md)
 2. Enable RLS on new tables
 3. Use `getSupabaseClientWithJWT` in the route handler
-4. Update `specs/FEATURES.md`
+4. Update `index.md`
 
 ## See also
 

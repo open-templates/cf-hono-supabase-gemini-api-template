@@ -1,6 +1,6 @@
 # cf-hono-supabase-gemini-api-template
 
-Cloudflare Worker API built with **Hono**, **Supabase Auth**, and **Google Gemini** from [@open-templates](https://github.com/open-templates). Pairs with [react-supabase-auth-template](https://github.com/open-templates/react-supabase-auth-template).
+Cloudflare Worker API built with **Hono**, **Supabase Auth**, and **Google Gemini** from [@open-templates](https://github.com/open-templates). Pairs with [react-supabase-auth-ai-chat-template](https://github.com/open-templates/react-supabase-auth-ai-chat-template).
 
 ## Quick start
 
@@ -31,7 +31,7 @@ See [`templates/ABOUT_TEMPLATES.md`](templates/ABOUT_TEMPLATES.md) and [`docs/IN
 | `POST /chat` | Bearer JWT | Send `{ "message": "..." }` to Gemini; returns model reply |
 | `GET /chat?message=...` | Bearer JWT | Query-string alternative for quick tests |
 
-See [`specs/FEATURES.md`](specs/FEATURES.md) for detailed behavior and extension guidance.
+See [`index.md`](index.md) for detailed behavior and extension guidance.
 
 Test:
 

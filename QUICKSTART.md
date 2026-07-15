@@ -77,7 +77,7 @@ Example success response from `/chat`:
 2. In `react-supabase-auth-template`, set `VITE_API_BASE_URL=http://localhost:8787` in `.env.local`.
 3. Start the frontend (`bun run dev`).
 4. Sign in with Google OAuth or email/password; the home page calls `GET /me` and the header polls `GET /health`.
-5. Call `POST /chat` from your frontend with the same Bearer token to add an AI prompt UI (see [`specs/FEATURES.md`](specs/FEATURES.md)).
+5. Call `POST /chat` from your frontend with the same Bearer token to add an AI prompt UI (see [`index.md`](index.md)).
 
 ## 6. Deploy
 
